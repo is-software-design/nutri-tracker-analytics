@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package api;
+
+message GetCaloriesRequest {
+  int32 user_id = 1;
+  string start_date = 2;
+  string end_date = 3;
+}
+
+message GetCaloriesResponse {
+  float total_calories = 1;
+}
+
+
+service AnalyticService {
+  rpc GetCaloriesStatistic(GetCaloriesRequest) returns (GetCaloriesResponse);
+}
