@@ -19,12 +19,23 @@ class AnalyticServiceStub(object):
                 request_serializer=api__pb2.GetCaloriesRequest.SerializeToString,
                 response_deserializer=api__pb2.GetCaloriesResponse.FromString,
                 )
+        self.GetRecommendations = channel.unary_unary(
+                '/api.AnalyticService/GetRecommendations',
+                request_serializer=api__pb2.GetRecsRequest.SerializeToString,
+                response_deserializer=api__pb2.GetRecsResponse.FromString,
+                )
 
 
 class AnalyticServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetCaloriesStatistic(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetRecommendations(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +48,11 @@ def add_AnalyticServiceServicer_to_server(servicer, server):
                     servicer.GetCaloriesStatistic,
                     request_deserializer=api__pb2.GetCaloriesRequest.FromString,
                     response_serializer=api__pb2.GetCaloriesResponse.SerializeToString,
+            ),
+            'GetRecommendations': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetRecommendations,
+                    request_deserializer=api__pb2.GetRecsRequest.FromString,
+                    response_serializer=api__pb2.GetRecsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,5 +78,22 @@ class AnalyticService(object):
         return grpc.experimental.unary_unary(request, target, '/api.AnalyticService/GetCaloriesStatistic',
             api__pb2.GetCaloriesRequest.SerializeToString,
             api__pb2.GetCaloriesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetRecommendations(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/api.AnalyticService/GetRecommendations',
+            api__pb2.GetRecsRequest.SerializeToString,
+            api__pb2.GetRecsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

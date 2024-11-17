@@ -8,11 +8,26 @@ message GetCaloriesRequest {
   string end_date = 3;
 }
 
+message GetRecsRequest {
+  int32 user_id = 1;
+}
+
 message GetCaloriesResponse {
   float total_calories = 1;
+}
+
+message Recommendation {
+  int32 dish_id = 1;
+  string dish_name = 2;
+  int32 amount = 3;
+}
+
+message GetRecsResponse {
+  repeated Recommendation recs = 1;
 }
 
 
 service AnalyticService {
   rpc GetCaloriesStatistic(GetCaloriesRequest) returns (GetCaloriesResponse);
+  rpc GetRecommendations(GetRecsRequest) returns (GetRecsResponse);
 }
