@@ -13,7 +13,8 @@ class User(Base):
     date_of_birth = Column(Date, nullable=False)
     weight = Column(Float, nullable=False)
     height = Column(Float, nullable=False)
-    activity_level = Column(Enum("high", "low", "medium", name="activity_level"), nullable=False)
+    activity_level = Column(Enum("high", "low", "medium", name="activity_level"),
+                            nullable=False)
     goal = Column(Enum("diet", "weight gain", name="goal"), nullable=False)
 
     user_activities = relationship("UserActivity", back_populates="user")
