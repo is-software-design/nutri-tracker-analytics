@@ -1,6 +1,6 @@
 FROM python:3.8-slim
 
-WORKDIR  /usr/src
+WORKDIR /source
 
 RUN apt-get update && \
  apt-get install -y gcc make libpq-dev apt-transport-https ca-certificates build-essential
@@ -10,12 +10,13 @@ RUN pip install psycopg2-binary==2.9.3
 RUN pip install -r requirements.txt
 
 ENV PORT=5000
-ENV DB_PORT=5432
-ENV DB_HOST=postgres
-ENV DB_NAME=nutri_tracker_db
-ENV DB_USER=postgres_user
-ENV DB_PASSWORD=postgres_password
+ARG DB_PORT
+ARG DB_HOST
+ARG DB_NAME
+ARG DB_USER
+ARG DB_PASSWORD
 
-COPY src .
+COPY ./src ./src
+WORKDIR /source/src
 
 CMD ["python", "app.py"]
