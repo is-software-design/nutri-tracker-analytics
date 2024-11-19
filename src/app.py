@@ -6,7 +6,7 @@ from entities.user import User, Base
 import os
 import time
 from random import choice
-from  sqlalchemy.sql.expression import func, select
+from sqlalchemy.sql.expression import func, select
 from entities.user_activity import UserActivity
 from entities.activity_type import ActivityType
 from entities.dish import Dish
@@ -17,7 +17,7 @@ import analytic_api_pb2
 import analytic_api_pb2_grpc
 
 
-username = os.getenv("DB_USERNAME")
+username = os.getenv("DB_USER")
 password = os.getenv("DB_PASSWORD")
 host = os.getenv("DB_HOST")
 db_port = os.getenv("DB_PORT")

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import relationship
-from src.entities.base import Base
+from entities.base import Base
 
 
 class ActivityType(Base):

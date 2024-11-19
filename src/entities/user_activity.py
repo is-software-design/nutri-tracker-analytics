@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, Float, TIMESTAMP
 from sqlalchemy.orm import relationship
-from src.entities.base import Base
+from entities.base import Base
 
 
 class UserActivity(Base):

@@ -1,6 +1,6 @@
 from sqlalchemy import TIMESTAMP, Column, Integer, ForeignKey, Enum, Float
 from sqlalchemy.orm import relationship
-from src.entities.base import Base
+from entities.base import Base
 
 
 class EatenItem(Base):
