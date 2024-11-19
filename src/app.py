@@ -16,16 +16,14 @@ from entities.dish_product import DishProduct
 import analytic_api_pb2
 import analytic_api_pb2_grpc
 
-#username = os.getenv("db_username")
-#password = os.getenv("")
 
-username = "postgres"
-password = "jango123"
-host = "localhost"
-port = "5433"
-dbname = "nutri_db"
+username = os.getenv("DB_USERNAME")
+password = os.getenv("DB_PASSWORD")
+host = os.getenv("DB_HOST")
+db_port = os.getenv("DB_PORT")
+dbname = os.getenv("DB_NAME")
 
-DATABASE_URL = f'postgresql+psycopg2://{username}:{password}@{host}:{port}/{dbname}'
+DATABASE_URL = f'postgresql+psycopg2://{username}:{password}@{host}:{db_port}/{dbname}'
 
 engine = create_engine(DATABASE_URL, echo=True)
 Base.metadata.create_all(engine)
@@ -63,7 +61,7 @@ class AnalyticService(analytic_api_pb2_grpc.AnalyticServiceServicer):
 
 
 def serve():
-    port = os.getenv('PORT', '50056')
+    port = os.getenv('PORT', '5000')
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
     analytic_api_pb2_grpc.add_AnalyticServiceServicer_to_server(AnalyticService(), server)
     server.add_insecure_port(f'[::]:{port}')
