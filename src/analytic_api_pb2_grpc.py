@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import api_pb2 as api__pb2
+import analytic_api_pb2 as analytic__api__pb2
 
 
 class AnalyticServiceStub(object):
@@ -16,13 +16,13 @@ class AnalyticServiceStub(object):
         """
         self.GetCaloriesStatistic = channel.unary_unary(
                 '/api.AnalyticService/GetCaloriesStatistic',
-                request_serializer=api__pb2.GetCaloriesRequest.SerializeToString,
-                response_deserializer=api__pb2.GetCaloriesResponse.FromString,
+                request_serializer=analytic__api__pb2.GetCaloriesRequest.SerializeToString,
+                response_deserializer=analytic__api__pb2.GetCaloriesResponse.FromString,
                 )
         self.GetRecommendations = channel.unary_unary(
                 '/api.AnalyticService/GetRecommendations',
-                request_serializer=api__pb2.GetRecsRequest.SerializeToString,
-                response_deserializer=api__pb2.GetRecsResponse.FromString,
+                request_serializer=analytic__api__pb2.GetRecsRequest.SerializeToString,
+                response_deserializer=analytic__api__pb2.GetRecsResponse.FromString,
                 )
 
 
@@ -46,13 +46,13 @@ def add_AnalyticServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetCaloriesStatistic': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCaloriesStatistic,
-                    request_deserializer=api__pb2.GetCaloriesRequest.FromString,
-                    response_serializer=api__pb2.GetCaloriesResponse.SerializeToString,
+                    request_deserializer=analytic__api__pb2.GetCaloriesRequest.FromString,
+                    response_serializer=analytic__api__pb2.GetCaloriesResponse.SerializeToString,
             ),
             'GetRecommendations': grpc.unary_unary_rpc_method_handler(
                     servicer.GetRecommendations,
-                    request_deserializer=api__pb2.GetRecsRequest.FromString,
-                    response_serializer=api__pb2.GetRecsResponse.SerializeToString,
+                    request_deserializer=analytic__api__pb2.GetRecsRequest.FromString,
+                    response_serializer=analytic__api__pb2.GetRecsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -76,8 +76,8 @@ class AnalyticService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.AnalyticService/GetCaloriesStatistic',
-            api__pb2.GetCaloriesRequest.SerializeToString,
-            api__pb2.GetCaloriesResponse.FromString,
+            analytic__api__pb2.GetCaloriesRequest.SerializeToString,
+            analytic__api__pb2.GetCaloriesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -93,7 +93,7 @@ class AnalyticService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.AnalyticService/GetRecommendations',
-            api__pb2.GetRecsRequest.SerializeToString,
-            api__pb2.GetRecsResponse.FromString,
+            analytic__api__pb2.GetRecsRequest.SerializeToString,
+            analytic__api__pb2.GetRecsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

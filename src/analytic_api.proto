@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package api;
 
+option csharp_namespace = "Nutritracker.DarkArts.Analytics.Api";
+
 message GetCaloriesRequest {
   int32 user_id = 1;
   string start_date = 2;

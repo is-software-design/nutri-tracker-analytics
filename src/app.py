@@ -13,8 +13,8 @@ from entities.dish import Dish
 from entities.product import Product
 from entities.eaten_item import EatenItem
 from entities.dish_product import DishProduct
-import api_pb2
-import api_pb2_grpc
+import analytic_api_pb2
+import analytic_api_pb2_grpc
 
 #username = os.getenv("db_username")
 #password = os.getenv("")
@@ -33,7 +33,7 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 
 
-class AnalyticService(api_pb2_grpc.AnalyticServiceServicer):
+class AnalyticService(analytic_api_pb2_grpc.AnalyticServiceServicer):
     def GetCaloriesStatistic(self, request, context):
         session = Session()
         eaten_items = session.query(EatenItem).filter((EatenItem.user_id == request.user_id) &
@@ -48,7 +48,7 @@ class AnalyticService(api_pb2_grpc.AnalyticServiceServicer):
                 c_sum += (session.query(Product).filter_by(
                     product_id=i.item_id).first().calories_per_100g * i.amount / 100)
         session.close()
-        return api_pb2.GetCaloriesResponse(total_calories=c_sum)
+        return analytic_api_pb2.GetCaloriesResponse(total_calories=c_sum)
 
     def GetRecommendations(self, request, context):
         session = Session()
@@ -56,16 +56,16 @@ class AnalyticService(api_pb2_grpc.AnalyticServiceServicer):
         res = []
         for i in range(recs_count):
             recs = session.query(Dish).order_by(func.random()).first()
-            res.append(api_pb2.Recommendation(dish_id=recs.dish_id,
+            res.append(analytic_api_pb2.Recommendation(dish_id=recs.dish_id,
                                               dish_name=recs.name,
                                               amount=choice([300, 400, 500, 600])))
-        return api_pb2.GetRecsResponse(recs=res)
+        return analytic_api_pb2.GetRecsResponse(recs=res)
 
 
 def serve():
     port = os.getenv('PORT', '50056')
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
-    api_pb2_grpc.add_AnalyticServiceServicer_to_server(AnalyticService(), server)
+    analytic_api_pb2_grpc.add_AnalyticServiceServicer_to_server(AnalyticService(), server)
     server.add_insecure_port(f'[::]:{port}')
     server.start()
     print(f"gRPC server is running on port {port}...")
