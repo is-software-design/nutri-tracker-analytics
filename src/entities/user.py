@@ -1,6 +1,18 @@
-from sqlalchemy import Column, Integer, String, Date, Enum, Float
+from sqlalchemy import Column, Integer, String, Date, Enum as SaEnum, Float
 from sqlalchemy.orm import relationship
 from entities.base import Base
+import enum
+
+
+class ActivityLevel(enum.Enum):
+    high = "high"
+    medium = "medium"
+    low = "low"
+
+
+class Goal(enum.Enum):
+    diet = "diet"
+    weight_gain = "weight_gain"
 
 
 class User(Base):
@@ -13,9 +25,8 @@ class User(Base):
     date_of_birth = Column(Date, nullable=False)
     weight = Column(Float, nullable=False)
     height = Column(Float, nullable=False)
-    activity_level = Column(Enum("high", "low", "medium", name="activity_level"),
-                            nullable=False)
-    goal = Column(Enum("diet", "weight gain", name="goal"), nullable=False)
+    activity_level = Column(SaEnum(ActivityLevel), nullable=False)
+    goal = Column(SaEnum(Goal), nullable=False)
 
     user_activities = relationship("UserActivity", back_populates="user")
     user_products = relationship("Product", back_populates="owner")
