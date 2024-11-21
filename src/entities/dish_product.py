@@ -4,11 +4,11 @@ from entities.base import Base
 
 
 class DishProduct(Base):
-    __tablename__ = 'DishProduct'
+    __tablename__ = 'dish_product'
 
     dish_product_id = Column(Integer, primary_key=True)
-    dish_id = Column(Integer, ForeignKey("Dish.dish_id"))
-    product_id = Column(Integer, ForeignKey("Product.product_id"))
+    dish_id = Column(Integer, ForeignKey("dishes.dish_id"))
+    product_id = Column(Integer, ForeignKey("products.product_id"))
     mass = Column(Float, nullable=False)
 
     dishes = relationship("Dish", back_populates="products")

@@ -4,7 +4,7 @@ from entities.base import Base
 
 
 class ActivityType(Base):
-    __tablename__ = 'ActivityType'
+    __tablename__ = 'activity_types'
 
     activity_type_id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)

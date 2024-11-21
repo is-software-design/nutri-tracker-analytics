@@ -4,19 +4,8 @@ from entities.base import Base
 import enum
 
 
-class ActivityLevel(enum.Enum):
-    high = "high"
-    medium = "medium"
-    low = "low"
-
-
-class Goal(enum.Enum):
-    diet = "diet"
-    weight_gain = "weight_gain"
-
-
 class User(Base):
-    __tablename__ = 'User'
+    __tablename__ = 'users'
 
     user_id = Column(Integer, primary_key=True)
     username = Column(String, unique=True, nullable=False)
@@ -25,8 +14,8 @@ class User(Base):
     date_of_birth = Column(Date, nullable=False)
     weight = Column(Float, nullable=False)
     height = Column(Float, nullable=False)
-    activity_level = Column(SaEnum(ActivityLevel), nullable=False)
-    goal = Column(SaEnum(Goal), nullable=False)
+    activity_level = Column(String, nullable=False)
+    goal = Column(String, nullable=False)
 
     user_activities = relationship("UserActivity", back_populates="user")
     user_products = relationship("Product", back_populates="owner")

@@ -40,7 +40,7 @@ class AnalyticService(analytic_api_pb2_grpc.AnalyticServiceServicer):
                                                       ).all()
         c_sum = 0
         for i in eaten_items:
-            if i.item_type == "dish":
+            if i.item_type == 1:
                 c_sum += session.query(Dish).filter_by(dish_id=i.item_id).first().total_calories
             else:
                 c_sum += (session.query(Product).filter_by(
