@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61nalytic_api.proto\x12\x03\x61pi\"K\n\x12GetCaloriesRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x12\n\nstart_date\x18\x02 \x01(\t\x12\x10\n\x08\x65nd_date\x18\x03 \x01(\t\"!\n\x0eGetRecsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\"-\n\x13GetCaloriesResponse\x12\x16\n\x0etotal_calories\x18\x01 \x01(\x02\"D\n\x0eRecommendation\x12\x0f\n\x07\x64ish_id\x18\x01 \x01(\x05\x12\x11\n\tdish_name\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x05\"4\n\x0fGetRecsResponse\x12!\n\x04recs\x18\x01 \x03(\x0b\x32\x13.api.Recommendation2\x9d\x01\n\x0f\x41nalyticService\x12I\n\x14GetCaloriesStatistic\x12\x17.api.GetCaloriesRequest\x1a\x18.api.GetCaloriesResponse\x12?\n\x12GetRecommendations\x12\x13.api.GetRecsRequest\x1a\x14.api.GetRecsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61nalytic_api.proto\x12\x03\x61pi\"K\n\x12GetCaloriesRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x12\n\nstart_date\x18\x02 \x01(\t\x12\x10\n\x08\x65nd_date\x18\x03 \x01(\t\"!\n\x0eGetRecsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\"-\n\x13GetCaloriesResponse\x12\x16\n\x0etotal_calories\x18\x01 \x01(\x02\"*\n\x16GetAllCaloriesResponse\x12\x10\n\x08\x63\x61lories\x18\x01 \x03(\x02\"D\n\x0eRecommendation\x12\x0f\n\x07\x64ish_id\x18\x01 \x01(\x05\x12\x11\n\tdish_name\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x05\"4\n\x0fGetRecsResponse\x12!\n\x04recs\x18\x01 \x03(\x0b\x32\x13.api.Recommendation2\xee\x01\n\x0f\x41nalyticService\x12I\n\x14GetCaloriesStatistic\x12\x17.api.GetCaloriesRequest\x1a\x18.api.GetCaloriesResponse\x12O\n\x17GetAllCaloriesStatistic\x12\x17.api.GetCaloriesRequest\x1a\x1b.api.GetAllCaloriesResponse\x12?\n\x12GetRecommendations\x12\x13.api.GetRecsRequest\x1a\x14.api.GetRecsResponseB&\xaa\x02#Nutritracker.DarkArts.Analytics.Apib\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -21,16 +21,19 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'analytic_api_pb2', _globals
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'\252\002#Nutritracker.DarkArts.Analytics.Api'
   _globals['_GETCALORIESREQUEST']._serialized_start=27
   _globals['_GETCALORIESREQUEST']._serialized_end=102
   _globals['_GETRECSREQUEST']._serialized_start=104
   _globals['_GETRECSREQUEST']._serialized_end=137
   _globals['_GETCALORIESRESPONSE']._serialized_start=139
   _globals['_GETCALORIESRESPONSE']._serialized_end=184
-  _globals['_RECOMMENDATION']._serialized_start=186
-  _globals['_RECOMMENDATION']._serialized_end=254
-  _globals['_GETRECSRESPONSE']._serialized_start=256
-  _globals['_GETRECSRESPONSE']._serialized_end=308
-  _globals['_ANALYTICSERVICE']._serialized_start=311
-  _globals['_ANALYTICSERVICE']._serialized_end=468
+  _globals['_GETALLCALORIESRESPONSE']._serialized_start=186
+  _globals['_GETALLCALORIESRESPONSE']._serialized_end=228
+  _globals['_RECOMMENDATION']._serialized_start=230
+  _globals['_RECOMMENDATION']._serialized_end=298
+  _globals['_GETRECSRESPONSE']._serialized_start=300
+  _globals['_GETRECSRESPONSE']._serialized_end=352
+  _globals['_ANALYTICSERVICE']._serialized_start=355
+  _globals['_ANALYTICSERVICE']._serialized_end=593
 # @@protoc_insertion_point(module_scope)

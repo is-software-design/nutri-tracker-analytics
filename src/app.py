@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from entities.user import User, Base
 import os
+from datetime import datetime, timedelta
 import time
 from random import choice
 from sqlalchemy.sql.expression import func, select
@@ -47,6 +48,32 @@ class AnalyticService(analytic_api_pb2_grpc.AnalyticServiceServicer):
                     product_id=i.item_id).first().calories_per_100g * i.amount / 100)
         session.close()
         return analytic_api_pb2.GetCaloriesResponse(total_calories=c_sum)
+
+    def GetAllCaloriesStatistic(self, request, context):
+        session = Session()
+        start = datetime.strptime(request.start_date, "%m.%d.%Y")
+        end = datetime.strptime(request.end_date, "%m.%d.%Y")
+        current_date = start
+        date_list = []
+        res = []
+        while current_date <= end:
+            date_list.append(current_date.strftime("%m.%d.%Y"))
+            current_date += timedelta(days=1)
+        for d in date_list:
+            eaten_items = session.query(EatenItem).filter((EatenItem.user_id == request.user_id) &
+                                                          (EatenItem.date_time >= d) &
+                                                          (EatenItem.date_time <= d)
+                                                          ).all()
+            c_sum = 0
+            for i in eaten_items:
+                if i.item_type == 1:
+                    c_sum += session.query(Dish).filter_by(dish_id=i.item_id).first().total_calories
+                else:
+                    c_sum += (session.query(Product).filter_by(
+                        product_id=i.item_id).first().calories_per_100g * i.amount / 100)
+            res.append(c_sum)
+        session.close()
+        return analytic_api_pb2.GetAllCaloriesResponse(calories=res)
 
     def GetRecommendations(self, request, context):
         session = Session()

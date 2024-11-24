@@ -18,6 +18,10 @@ message GetCaloriesResponse {
   float total_calories = 1;
 }
 
+message GetAllCaloriesResponse {
+  repeated float calories = 1;
+}
+
 message Recommendation {
   int32 dish_id = 1;
   string dish_name = 2;
@@ -31,5 +35,6 @@ message GetRecsResponse {
 
 service AnalyticService {
   rpc GetCaloriesStatistic(GetCaloriesRequest) returns (GetCaloriesResponse);
+  rpc GetAllCaloriesStatistic(GetCaloriesRequest) returns (GetAllCaloriesResponse);
   rpc GetRecommendations(GetRecsRequest) returns (GetRecsResponse);
 }
