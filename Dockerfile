@@ -1,27 +1,44 @@
-FROM python:3.8-slim
+FROM python:3.8-slim AS builder
 
-WORKDIR  /usr/src
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+ARG USER_NAME=myuser
 
-RUN apt-get update && \
- apt-get install -y gcc make libpq-dev apt-transport-https ca-certificates build-essential
+RUN groupadd --gid $GROUP_ID $USER_NAME && \
+    useradd --uid $USER_ID --gid $GROUP_ID -m $USER_NAME
+
+USER $USER_NAME
+
+WORKDIR /usr/src
 
 COPY requirements.txt .
-RUN pip install psycopg2-binary==2.9.3
 RUN pip install -r requirements.txt
-
-ENV PORT=5000
-ARG DB_PORT
-ARG DB_HOST
-ARG DB_NAME
-ARG DB_USER
-ARG DB_PASSWORD
-
-ENV DB_PORT=$DB_PORT
-ENV DB_HOST=$DB_HOST
-ENV DB_NAME=$DB_NAME
-ENV DB_USER=$DB_USER
-ENV DB_PASSWORD=$DB_PASSWORD
+RUN pip install psycopg2-binary==2.9.3
 
 COPY src .
+
+FROM python:3.8-slim
+
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+ARG USER_NAME=myuser
+
+RUN groupadd --gid $GROUP_ID $USER_NAME && \
+    useradd --uid $USER_ID --gid $GROUP_ID -m $USER_NAME
+
+USER $USER_NAME
+
+WORKDIR /usr/src
+
+COPY --from=builder /usr/src /usr/src
+RUN pip install -r requirements.txt
+RUN pip install psycopg2-binary==2.9.3
+
+ENV PORT=5000
+ENV DB_PORT=5432
+ENV DB_HOST=localhost
+ENV DB_NAME=nutritracker
+ENV DB_USER=postgres
+ENV DB_PASSWORD=postgres
 
 CMD ["python", "app.py"]
